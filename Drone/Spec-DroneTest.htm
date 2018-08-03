@@ -1,0 +1,164 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:18.0pt;
+	font-family:"Times New Roman",serif;
+	font-weight:bold;}
+p
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
+	font-weight:bold;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB>
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;background:white'><span style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;
+color:#091E42'>You can spend as long as you want; just have fun building it and
+let us know how long you spent.&nbsp; Don't feel the need to implement all
+aspects of it.&nbsp; It's important to show good software structure with
+extensibility and test-ability in mind rather than provide a full
+implementation. Looking forward to see what you come up with, and if you have
+any questions feel free to email or call me.</span></p>
+
+<p class=MsoNormal style='margin-top:22.5pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:15.0pt;font-family:"Segoe UI",sans-serif;color:#333333'>APD001-XE02
+Specification</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>AccessPay
+has an office Drone.</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>It has
+a number of features and capabilities that can be controlled via a command
+interface.</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>Management
+commands:</span></b></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>Start
+(S) start the drone<br>
+Boundary (Bx,y) define the drones navigable, rectangular border where x,y&nbsp;<br>
+are the maximum upper right coordinates; the lower right is assumed to be&nbsp;<br>
+(0,0).&nbsp;<br>
+InitialPosition (Px,y) define the initial position of the drone; (0,0) is
+default<br>
+Restart (R) restart the drone, losing Boundary and InitialPosition settings<br>
+Shutdown (D) shutdown the drone</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>The
+system must be started (Start) and must also have received the Boundary command
+before any Action commands can be processed.</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>Action
+commands:</span></b></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>Toggle
+lights (T) turn the light on<br>
+Flash lights (F) flash the lights<br>
+Alert (horn) (At) sound the horn for t seconds<br>
+Home (H) navigate home<br>
+Move (Mt,d) move for t seconds time in d direction (compass heading)</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>The
+drone has a single speed engine of 0.5 m/s, reaches top speed in 0 milliseconds
+(impressive, and highly confidential technology), operates at a fixed elevation
+of 2.1m and can head in numerous directions depending on the navigation module
+installed. The drone can accept a stream of Commands, but only processes them
+sequentially.</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>There
+are two navigation modules (nav-mods) our Drone supports; Rails and Freedom.
+Rails only supports Move commands with a direction value of 0, 90, 180 and 270.
+Freedom is much more advanced and supports full 360-degree movement across the
+plane. The Drone tracks its current position as an important input into an
+on-board critical safety feature.</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>Whilst
+our Drone will accept any Move instruction it will never go beyond the
+configured Boundary. If it receives an instruction that results in it crossing
+the boundary it will go as far as it can and then sound the horn 3 times.
+Boundary detection relies on the Drone tracking its movement and knowing its
+current coordinates in relation to the boundaries.</span></p>
+
+<p class=MsoNormal style='margin-top:7.5pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:#091E42'>Implement
+the Drone software logic, providing a test suite, that uses the Command
+Interface and asserts using the state of the Drone.</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
