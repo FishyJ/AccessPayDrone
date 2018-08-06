@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
-namespace Drone
+namespace Drone.Commands.Tests
 {
-    class Location
+    public class AlertTests
     {
-        private PointF _currentLocation;
-
     }
 }

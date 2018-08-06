@@ -3,33 +3,48 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>ReadMe!</title>
 </head>
 <body>
-<H1>Assumptions</H1>
-<ol>
-    <li>X is horizontal</li>
-    <li>Y is vertical</li>
-    <li>Dimensions are in metres, ie 3,4 is 3m wide by 4m high.</li>
-    <li>That directions map on to a clock face with</li>
+    <H3>Assumptions</H3>
+    <ol>
+        <li>X is horizontal</li>
+        <li>Y is vertical</li>
+        <li>Dimensions are in metres, ie 3,4 is 3m wide by 4m high.</li>
+        <li>
+            That directions map on to a clock face with
+            <ul>
+                <li>North (0) on 12</li>
+                <li>East (90) on 3</li>
+                <li>South (180) on 6</li>
+                <li>West (270) on 9</li>
+            </ul>
+        </li>
+        <li>A command that positions the drone on the boundary is not that same as one that attempts to breach the boundary.</li>
+        <li>Toggling the lights will change lights that are 'off' to 'on', and lights that are 'on' to 'off'.</li>
+        <li>Flashing the lights will leave them in an 'off' state.</li>
+    </ol>
+    <H3>Observations</H3>
+    <image src="Trigdiagram.png" height="200" width="280" />
     <ul>
-        <li>North (0) on 12</li>
-        <li>East (90) on 3</li>
-        <li>South (180) on 6</li>
-        <li>West (270) on 9</li>
+        <li>Sin(x) = Opposite / Hypotenuse</li>
+        <li>Cos(x) = Adjacent / Hypotenuse</li>
+        <li>Tan(x) = Opposite / Adjacent</li>
+        <li>Opposite = Sin(x) * Hypotenuse = Tan(x) * Adjacent</li>
+        <li>Adjacent = Cos(x) * Hypotenuse = Opposite / Tan(x)</li>
+        <li>Hypotenuse = Opposite / Sin(x) = Adjacent / Cos(x)</li>
+        <li>Opposite = X</li>
+        <li>Adjacent = Y</li>
+        <li>Hypotenuse = Distance</li>
+        <li>Radians = Degrees * pi / 180</li>
+        <li>Degrees = Radians * 180 / pi</li>
+        <li>Ready reckoner...</li>
+        <ul>
+            <li>North -> 360 Degrees = 2pi Radians. (0 Degrees = 0pi Radians.)</li>
+            <li>South -> 180 Degrees = pi Radians.</li>
+            <li>East -> 90 Degrees = pi/2 Radians.</li>
+            <li>West -> 270 Degrees = 3pi/2 Radians.</li>
+        </ul>
     </ul>
-</ol>
-<H1>Observations</H1>
-<image src="Trigdiagram.png" height="250" width="350" />
-<ul>
-    <li>Sin(a) = Opposite / Hypotenuse</li>
-    <li>Cos(a) = Adjacent / Hypotenuse</li>
-    <li>Opposite = Sin(a) * Hypotenuse</li>
-    <li>Adjacent = Cos(a) * Hypotenuse</li>
-    <li>Hypotenuse = Opposite / Sin(a) = Adjacent / Cos(a)</li>
-    <li>Opposite = X</li>
-    <li>Adjacent = Y</li>
-    <li>Hypotenuse = Distance</li>
-</ul>
 </body>
 </html>

@@ -9,6 +9,8 @@ namespace Drone
 {
     public class State
     {
+        private static State _state;
+        private static readonly object _padlock = new object();
         private PointD _initialLocation;
         private PointD _currentLocation;
         private PointD _boundary;
@@ -16,26 +18,26 @@ namespace Drone
         private bool _preventedBorderBreach;
         private bool _started;
         private bool _lightsOn;
-        private const float MaxSpeed = 0.5f;
 
-        public State()
-        {
-            
-        }
+        private State() {} // Hide the constructor. This needs to be a singleton. There's only one drone...
 
-        private double Degrees2Radians(double degrees)
+        public static State Instance
         {
-            return Math.PI * degrees / 180.0;
-        }
+            get
+            {
+                if (_state == null)
+                {
+                    lock (_padlock)
+                    {
+                        if (_state == null)
+                        {
+                            _state = new State();
+                        }
+                    }
+                }
 
-        public BoundaryBreached WillBoundaryBeBreached(PointD currentLocation, PointD moveBy)
-        {
-            PointD newLocation = new PointD(){X = currentLocation.X + moveBy.X, Y = currentLocation.Y + moveBy.Y};
-            if (newLocation.X < 0) return BoundaryBreached.Left;
-            if (newLocation.Y < 0) return BoundaryBreached.Bottom;
-            if (newLocation.X > _boundary.X) return BoundaryBreached.Right;
-            if (newLocation.Y > _boundary.Y) return BoundaryBreached.Top;
-            return BoundaryBreached.No;
+                return _state;
+            }
         }
 
         private double CleanDirection(double direction)
@@ -45,39 +47,6 @@ namespace Drone
             return _direction % 360; // Make the bearing in the range 0 to 359 degrees;
         }
 
-        private double CalcX(double distance, double direction) => Math.Sin(Degrees2Radians(direction)) * distance;
-        private double CalcY(double distance, double direction) => Math.Cos(Degrees2Radians(direction)) * distance;
 
-        private double CalcDistanceForX(double X, double direction) => X / Math.Cos(Degrees2Radians(direction));
-        private double CalcDistanceForY(double Y, double direction) => Y / Math.Cos(Degrees2Radians(direction));
-
-        public void Move(double distance, double direction)
-        {
-            PointD deltaPoint = new PointD();
-
-
-            List<PointF> points = new List<PointF>(); // Break down the movement into 1 second 'frames', each limited to the speed of the drone.
-
-            double _distance = distance;
-            double _direction = direction;
-
-            _direction = CleanDirection(direction);
-
-            while (_distance >= 0)
-            {
-                double deltaDistance = _distance > MaxSpeed ? MaxSpeed : _distance;
-                _distance -= deltaDistance;
-                double _deltaX = CalcX(_distance, _direction);
-                double _deltaY = CalcY(_distance, _direction);
-                PointF point = new PointF();
-            }
-
-        }
-
-        public void MoveBy(PointF moveBy)
-        {
-            _currentLocation.X += moveBy.X;
-            _currentLocation.Y += moveBy.Y;
-        }
     }
 }

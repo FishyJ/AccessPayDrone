@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Drone
+namespace Drone.Freedom.Tests
 {
-    public enum BoundaryBreached { No, Left, Right, Top, Bottom, }
+    public class Class1
+    {
+    }
 }

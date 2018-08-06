@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Drone
+namespace Drone.Common
 {
-    public struct PointD
+    public class Constants
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public const float MaxSpeed = 0.5f;
     }
 }
