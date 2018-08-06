@@ -40,17 +40,42 @@ namespace Drone.Commands.Tests
         [TestCase("t", false, 0, 0)]
         public void TestPoint(string instruction, bool expectedToBeValid, double x, double y)
         {
-            //Act & Assign
-            InitialPosition ip = new InitialPosition(instruction);
-
-            //Assert
-            if (expectedToBeValid)
+            try
             {
-                Assert.AreEqual(x, ip.Point.X, 0.01, "X");
-                Assert.AreEqual(y, ip.Point.Y, 0.01, "Y");
+                //Act & Assign
+                InitialPosition ip = new InitialPosition(instruction);
+
+                //Assert
+                if (expectedToBeValid)
+                {
+                    Assert.AreEqual(x, ip.Point.X, 0.01, "X");
+                    Assert.AreEqual(y, ip.Point.Y, 0.01, "Y");
+                }
+                else
+                {
+                    Assert.IsNull(ip.Point);
+                }
             }
-            else { Assert.IsNull(ip.Point); }
+            catch (ArgumentException)
+            {
+                Assert.True(!expectedToBeValid);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
+        [TestCase(2.56, 4.67)]
+        public void TestPoint(double x, double y)
+        {
+            InitialPosition ip = new InitialPosition(new PointD(x,y));
+
+            Assert.IsNotNull(ip);
+            Assert.IsNotNull(ip.Point);
+            Assert.AreEqual(x,ip.Point.X,0.01,"X");
+            Assert.AreEqual(y, ip.Point.Y, 0.01, "Y");
+        }
     }
 }

@@ -18,19 +18,13 @@ namespace Drone.Commands
             Match match = Regex.Match(instruction, _regex, RegexOptions.Singleline);
             if (match.Success && match.Groups.Count == 3)
             {
-                if (double.TryParse(match.Groups[1].Value, out double x))
+                if (double.TryParse(match.Groups[1].Value, out double x) &&
+                    double.TryParse(match.Groups[2].Value, out double y))
                 {
-                    if (double.TryParse(match.Groups[2].Value, out double y))
-                    {
-                        Point = new PointD(x,y);
-                    }
-                }
-
-                if (Point == null)
-                {
-                    throw new ArgumentException(instruction);
+                    Point = new PointD(x,y);
                 }
             }
+            if (Point == null) { throw new ArgumentException(instruction); }
         }
 
         public new static bool InstructionIsForThisComand(string instruction)

@@ -8,6 +8,8 @@ namespace Drone.Commands
 {
     public class Factory
     {
+        private Factory() {} // Disable the default constructor.
+
         public static BaseCommand CreateCommand(string instruction)
         {
             if (Start.InstructionIsForThisComand(instruction)) { return new Start(); }

@@ -20,11 +20,11 @@ namespace Drone
             Y = y;
         }
 
-        private static double Degrees2Radians(double degrees) => Math.PI * degrees / 180.0;
+        public static double Degrees2Radians(double degrees) => Math.PI * degrees / 180.0;
 
-        private static double Radians2Degrees(double radians) => 180.0 * radians / Math.PI;
+        public static double Radians2Degrees(double radians) => 180.0 * radians / Math.PI;
 
-        private static double CleanDirection(double direction)
+        public static double CleanDirection(double direction)
         {
             double _direction = direction;
             while (_direction < 0) { _direction += 360; } // remove -ve bearings to become +ve bearings of the same direction.

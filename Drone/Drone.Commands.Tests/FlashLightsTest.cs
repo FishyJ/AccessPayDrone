@@ -15,7 +15,7 @@ namespace Drone.Commands.Tests
         [TestCase("t", false)]
         public void TestInstruction(string instruction, bool expectedToBeValid)
         {
-            Assert.AreEqual(expectedToBeValid, Home.InstructionIsForThisComand(instruction));
+            Assert.AreEqual(expectedToBeValid, FlashLights.InstructionIsForThisComand(instruction));
         }
     }
 }

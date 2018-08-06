@@ -17,5 +17,13 @@ namespace Drone.Commands.Tests
         {
             Assert.AreEqual(expectedToBeValid, ToggleLights.InstructionIsForThisComand(instruction));
         }
+
+        [TestCase()]
+        public void TestInstructionCreatedCorrectObject()
+        {
+            ToggleLights tl = new ToggleLights();
+            Assert.IsNotNull(tl);
+            Assert.IsInstanceOf<ITrigger>(tl);
+        }
     }
 }

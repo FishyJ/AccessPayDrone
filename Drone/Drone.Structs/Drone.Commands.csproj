@@ -40,24 +40,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alert.cs" />
-    <Compile Include="AlertEventArgs.cs" />
-    <Compile Include="BaseCommand.cs" />
-    <Compile Include="Boundary.cs" />
+    <Compile Include="ActionCommands\Alert.cs" />
+    <Compile Include="ActionCommands\AlertEventArgs.cs" />
+    <Compile Include="BaseClasses\BaseCommand.cs" />
+    <Compile Include="ManagementCommands\Boundary.cs" />
     <Compile Include="Factory.cs" />
-    <Compile Include="FlashLights.cs" />
-    <Compile Include="FlashLightsEventArgs.cs" />
-    <Compile Include="Home.cs" />
-    <Compile Include="InitialPosition.cs" />
+    <Compile Include="ActionCommands\FlashLights.cs" />
+    <Compile Include="ActionCommands\FlashLightsEventArgs.cs" />
+    <Compile Include="ActionCommands\Home.cs" />
+    <Compile Include="ManagementCommands\InitialPosition.cs" />
     <Compile Include="InvalidCommandException.cs" />
     <Compile Include="ITrigger.cs" />
-    <Compile Include="Move.cs" />
+    <Compile Include="ActionCommands\Move.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Restart.cs" />
-    <Compile Include="Shutdown.cs" />
-    <Compile Include="Start.cs" />
-    <Compile Include="ToggleLightsEventArgs.cs" />
-    <Compile Include="ToggleLights.cs" />
+    <Compile Include="ManagementCommands\Restart.cs" />
+    <Compile Include="ManagementCommands\Shutdown.cs" />
+    <Compile Include="ManagementCommands\Start.cs" />
+    <Compile Include="BaseClasses\ThreePartInstructionBaseCommand.cs" />
+    <Compile Include="ActionCommands\ToggleLightsEventArgs.cs" />
+    <Compile Include="ActionCommands\ToggleLights.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Drone.Common\Drone.Common.csproj">

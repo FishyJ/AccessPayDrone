@@ -40,16 +40,31 @@ namespace Drone.Commands.Tests
         [TestCase("t", false,0,0)]
         public void TestPoint(string instruction, bool expectedToBeValid, double x, double y)
         {
-            //Act & Assign
-            Boundary b = new Boundary(instruction);
-
-            //Assert
-            if (expectedToBeValid)
+            try
             {
-                Assert.AreEqual(x, b.Point.X, 0.01, "X");
-                Assert.AreEqual(y, b.Point.Y, 0.01, "Y");
+                //Act & Assign
+                Boundary b = new Boundary(instruction);
+
+                //Assert
+                if (expectedToBeValid)
+                {
+                    Assert.AreEqual(x, b.Point.X, 0.01, "X");
+                    Assert.AreEqual(y, b.Point.Y, 0.01, "Y");
+                }
+                else
+                {
+                    Assert.IsNull(b.Point);
+                }
             }
-            else { Assert.IsNull(b.Point); }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(!expectedToBeValid);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

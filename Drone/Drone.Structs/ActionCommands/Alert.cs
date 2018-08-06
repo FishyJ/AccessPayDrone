@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -9,18 +10,16 @@ namespace Drone.Commands
 {
     public class Alert : BaseCommand, ITrigger
     {
+        private static string _regex = @"[aA](\d+\.?\d*)";
         private System.Timers.Timer _timer;
-        private double _remainingSeconds;
+        public double RemainingSeconds { get; private set; }
+        public event AlertEventArgs.AlertEventHandler AlertRaised;
         private Alert() {}
 
-        public new static bool InstructionIsForThisComand(string instruction)
-        {
-            throw new NotImplementedException();
-        }
 
         public Alert(double seconds)
         {
-            _remainingSeconds = seconds;
+            RemainingSeconds = seconds;
             _timer = new Timer(0.125 * 1000); // 1/8th second.
             _timer.Elapsed += _timer_Elapsed;
             _timer.AutoReset = true;
@@ -29,7 +28,18 @@ namespace Drone.Commands
 
         public Alert(string instruction)
         {
-            throw new NotImplementedException();
+            Match match = Regex.Match(instruction, _regex, RegexOptions.Singleline);
+            if (double.TryParse(match.Groups[1].Value, out double seconds))
+            {
+                RemainingSeconds = seconds;
+            }
+        }
+
+        public new static bool InstructionIsForThisComand(string instruction)
+        {
+            Match match = Regex.Match(instruction, _regex, RegexOptions.Singleline);
+
+            return (match.Success && match.Groups.Count == 2);
         }
 
         ~Alert()
@@ -44,10 +54,11 @@ namespace Drone.Commands
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            _remainingSeconds -= _timer.Interval;
-            if (_remainingSeconds >= 0)
+            RemainingSeconds -= _timer.Interval;
+            if (RemainingSeconds >= 0)
             {
                 //do alert!
+                
             }
             else
             {
@@ -55,6 +66,12 @@ namespace Drone.Commands
                 _timer.Dispose();
             }
             throw new NotImplementedException();
+        }
+
+        protected virtual void OnAlert(AlertEventArgs e)
+        {
+            AlertEventArgs.AlertEventHandler handler = AlertRaised;
+            if (handler != null) { handler(this, e); }
         }
     }
 }
