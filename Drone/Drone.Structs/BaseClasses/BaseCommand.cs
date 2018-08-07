@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Drone.Commands
 {
-    public abstract class BaseCommand
+    public class BaseCommand
     {
         public static bool InstructionIsForThisComand(string instruction) => throw new NotImplementedException();
 

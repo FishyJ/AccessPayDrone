@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Drone.Commands
 {
@@ -22,7 +18,7 @@ namespace Drone.Commands
             if (Alert.InstructionIsForThisComand(instruction)) { return new Alert(instruction); }
             if (Home.InstructionIsForThisComand(instruction)) { return new Home(); }
             if (Move.InstructionIsForThisComand(instruction)) {  return new Move(instruction); }
-            return null;
+            throw new InvalidCommandException(instruction);            
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Drone.Commands.Tests
@@ -30,16 +26,17 @@ namespace Drone.Commands.Tests
         [TestCase("M3,4", typeof(Move), true)]
         public void FactoryReturnsCorrectObject(string instruction, Type type,bool expectValidObject)
         {
-            object o = Factory.CreateCommand(instruction);
             if (expectValidObject)
             {
+                object o = Factory.CreateCommand(instruction);
+
                 Assert.IsNotNull(o);
                 Assert.IsInstanceOf<BaseCommand>(o,"Is BaseCommand");
                 Assert.IsInstanceOf(type,o,"Is correct type.");
             }
             else
             {
-                Assert.IsNull(o);
+                Assert.Throws<InvalidCommandException>(() => Factory.CreateCommand(instruction));
             }
         }
     }

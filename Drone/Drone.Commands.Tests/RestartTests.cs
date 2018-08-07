@@ -1,5 +1,4 @@
-﻿using Drone.Commands;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Drone.Commands.Tests
 {

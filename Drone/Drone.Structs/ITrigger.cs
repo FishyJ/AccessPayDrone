@@ -1,4 +1,6 @@
-﻿namespace Drone.Commands
+﻿using System;
+
+namespace Drone.Commands
 {
     public interface ITrigger
     {

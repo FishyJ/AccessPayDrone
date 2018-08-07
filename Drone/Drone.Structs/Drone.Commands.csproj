@@ -43,6 +43,7 @@
     <Compile Include="ActionCommands\Alert.cs" />
     <Compile Include="ActionCommands\AlertEventArgs.cs" />
     <Compile Include="BaseClasses\BaseCommand.cs" />
+    <Compile Include="CommandList.cs" />
     <Compile Include="ManagementCommands\Boundary.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="ActionCommands\FlashLights.cs" />
@@ -56,7 +57,6 @@
     <Compile Include="ManagementCommands\Restart.cs" />
     <Compile Include="ManagementCommands\Shutdown.cs" />
     <Compile Include="ManagementCommands\Start.cs" />
-    <Compile Include="BaseClasses\ThreePartInstructionBaseCommand.cs" />
     <Compile Include="ActionCommands\ToggleLightsEventArgs.cs" />
     <Compile Include="ActionCommands\ToggleLights.cs" />
   </ItemGroup>
@@ -68,10 +68,6 @@
     <ProjectReference Include="..\Drone.Interface\Drone.Interface.csproj">
       <Project>{50595ec9-599b-4122-afa3-c22aad1899b2}</Project>
       <Name>Drone.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Drone\Drone.csproj">
-      <Project>{8d449954-25b4-4c4d-9023-9f68e2a42f99}</Project>
-      <Name>Drone</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
