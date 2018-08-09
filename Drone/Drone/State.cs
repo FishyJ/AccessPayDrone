@@ -41,9 +41,9 @@ namespace Drone
         public State()
         {
             Restart();
+
             _commandQueue = new Queue<BaseCommand>();
             _additionalCommands = new Queue<BaseCommand>();
-
 
             _timer = new System.Timers.Timer(0.5 * 1000) {AutoReset = true}; // 0.5 secs.
             _timer.Elapsed += Tick;

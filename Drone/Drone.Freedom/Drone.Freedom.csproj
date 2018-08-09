@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Drone.Common\Drone.Common.csproj">
+      <Project>{186971dc-87bf-4bdc-9a2c-8ef41d49eb32}</Project>
+      <Name>Drone.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Drone.Interface\Drone.Interface.csproj">
       <Project>{50595ec9-599b-4122-afa3-c22aad1899b2}</Project>
       <Name>Drone.Interface</Name>

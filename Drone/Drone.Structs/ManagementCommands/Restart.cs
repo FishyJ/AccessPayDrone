@@ -2,7 +2,7 @@
 {
     public class Restart : BaseCommand
     {
-        public Restart() {}
+        public Restart() : base("R") {}
         public new static bool InstructionIsForThisComand(string instruction) => instruction.ToUpperInvariant() == "R";
     }
 }

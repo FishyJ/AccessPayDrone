@@ -5,7 +5,7 @@ namespace Drone.Commands
     public class ToggleLights: BaseCommand, IActionCommand, ITrigger
     {
         public event ToggleLightsEventArgs.ToggleLightsEventHandler Toggle;
-        public ToggleLights() {}
+        public ToggleLights() : base("T") {}
 
         public new static bool InstructionIsForThisComand(string instruction) => instruction.ToUpperInvariant() == "T";
         public void Trigger()

@@ -17,22 +17,22 @@ namespace Drone
             Y = y;
         }
 
-        public static double Degrees2Radians(double degrees) => Math.PI * degrees / 180.0;
+        //public static double Degrees2Radians(double degrees) => Math.PI * degrees / 180.0;
 
         public static double Radians2Degrees(double radians) => 180.0 * radians / Math.PI;
 
-        public static double CleanDirection(double degrees)
-        {
-            double _degrees = degrees;
-            while (_degrees < 0) { _degrees += 360; } // remove -ve bearings to become +ve bearings of the same angle of degrees.
-            return _degrees % 360; // Make the bearing in the range 0 to 359 degrees;
-        }
+        //public static double CleanDirection(double degrees)
+        //{
+        //    double _degrees = degrees;
+        //    while (_degrees < 0) { _degrees += 360; } // remove -ve bearings to become +ve bearings of the same angle of degrees.
+        //    return _degrees % 360; // Make the bearing in the range 0 to 359 degrees;
+        //}
 
-        public static double CalculateX(Move move) => Math.Sin(Degrees2Radians(move.Degrees)) * move.Distance;
-        public static double CalculateY(Move move) => Math.Cos(Degrees2Radians(move.Degrees)) * move.Distance;
+        //public static double CalculateX(Move move) => Math.Sin(Degrees2Radians(move.Degrees)) * move.Distance;
+        //public static double CalculateY(Move move) => Math.Cos(Degrees2Radians(move.Degrees)) * move.Distance;
 
-        private static double CalculateX(double distance, double degrees) => distance * Math.Sin(Degrees2Radians(degrees));
-        private static double CalculateY(double distance, double degrees) => distance * Math.Cos(Degrees2Radians(degrees));
+        //private static double CalculateX(double distance, double degrees) => distance * Math.Sin(Degrees2Radians(degrees));
+        //private static double CalculateY(double distance, double degrees) => distance * Math.Cos(Degrees2Radians(degrees));
         public static double CalculateHypotenuse(PointD from, PointD to) => Math.Pow(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2), 0.5); // Pythagoras.
         public static double CalculateDegrees(PointD from, PointD to)
         {
@@ -56,33 +56,33 @@ namespace Drone
         }
 
         public static PointD NextPoint(PointD currentPoint, PointD moveBy) => new PointD(currentPoint.X + moveBy.X, currentPoint.Y + moveBy.Y);
-        public static PointD NextPoint(PointD currentPoint, Move move) => NextPoint(currentPoint, FromVector(move.Distance, move.Degrees));
-        public static PointD NextPoint(PointD currentPoint, double distance, double degrees) => NextPoint(currentPoint, FromVector(distance,degrees));
-        public static PointD FromVector(double distance, double degrees) => new PointD(CalculateX(distance, degrees), CalculateY(distance, degrees));
+        //public static PointD NextPoint(PointD currentPoint, Move move) => NextPoint(currentPoint, FromVector(move.Distance, move.Degrees));
+        //public static PointD NextPoint(PointD currentPoint, double distance, double degrees) => NextPoint(currentPoint, FromVector(distance,degrees));
+        //public static PointD FromVector(double distance, double degrees) => new PointD(CalculateX(distance, degrees), CalculateY(distance, degrees));
 
-        public static Move Move(double x, double y) => Move(new PointD(0,0), new PointD(x,y));
-        public static Move Move(PointD from, PointD to)
-        {
-            if (from == null) { throw new ArgumentNullException(nameof(from)); }
-            if (to == null) { throw new ArgumentNullException(nameof(to)); }
-            return new Move(CalculateHypotenuse(from, to), CalculateDegrees(from,to));
-        }
+        //public static Move Move(double x, double y) => Move(new PointD(0,0), new PointD(x,y));
+        //public static Move Move(PointD from, PointD to)
+        //{
+        //    if (from == null) { throw new ArgumentNullException(nameof(from)); }
+        //    if (to == null) { throw new ArgumentNullException(nameof(to)); }
+        //    return new Move(CalculateHypotenuse(from, to), CalculateDegrees(from,to));
+        //}
 
-        public static BoundaryBreach BoundaryWouldBreach(PointD upperBoundary, PointD currentLocation, Move move)
-        {
-            double deltaX = currentLocation.X + CalculateX(move);
-            double deltaY = currentLocation.Y + CalculateY(move);
+        //public static BoundaryBreach BoundaryWouldBreach(PointD upperBoundary, PointD currentLocation, Move move)
+        //{
+        //    double deltaX = currentLocation.X + CalculateX(move);
+        //    double deltaY = currentLocation.Y + CalculateY(move);
 
-            return WouldHaveBreachedBoundary(upperBoundary, new PointD(deltaX, deltaY));
-        }
-        public static BoundaryBreach WouldHaveBreachedBoundary(PointD upperBoundary, PointD point)
-        {
-            if (point.X < 0) return BoundaryBreach.Left;
-            if (point.Y < 0) return BoundaryBreach.Bottom;
-            if (point.X > upperBoundary.X) return BoundaryBreach.Right;
-            if (point.Y > upperBoundary.Y) return BoundaryBreach.Top;
-            return BoundaryBreach.No;
-        }
+        //    return WouldHaveBreachedBoundary(upperBoundary, new PointD(deltaX, deltaY));
+        //}
 
+        //public static BoundaryBreach WouldHaveBreachedBoundary(PointD upperBoundary, PointD point)
+        //{
+        //    if (point.X < 0) return BoundaryBreach.Left;
+        //    if (point.Y < 0) return BoundaryBreach.Bottom;
+        //    if (point.X > upperBoundary.X) return BoundaryBreach.Right;
+        //    if (point.Y > upperBoundary.Y) return BoundaryBreach.Top;
+        //    return BoundaryBreach.No;
+        //}
     }
 }
