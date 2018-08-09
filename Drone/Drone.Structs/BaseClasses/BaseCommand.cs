@@ -2,12 +2,13 @@
 
 namespace Drone.Commands
 {
-    public class BaseCommand
+    public abstract class BaseCommand
     {
+        public string Instruction { get; private set; }
         public static bool InstructionIsForThisComand(string instruction) => throw new NotImplementedException();
 
-        //public BaseCommand() {}
+        protected internal BaseCommand() {}
 
-        //public BaseCommand(string instruction) {}
+        protected BaseCommand(string instruction) => Instruction = instruction;
     }
 }

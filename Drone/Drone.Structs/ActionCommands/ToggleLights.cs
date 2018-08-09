@@ -2,7 +2,7 @@
 
 namespace Drone.Commands
 {
-    public class ToggleLights: BaseCommand, ITrigger
+    public class ToggleLights: BaseCommand, IActionCommand, ITrigger
     {
         public event ToggleLightsEventArgs.ToggleLightsEventHandler Toggle;
         public ToggleLights() {}

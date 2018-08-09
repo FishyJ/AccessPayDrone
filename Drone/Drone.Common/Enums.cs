@@ -1,4 +1,4 @@
 ﻿namespace Drone.Common
 {
-    public enum BoundaryBreached { No, Left, Right, Top, Bottom, }
+    public enum BoundaryBreach { No, Left, Right, Top, Bottom, }
 }

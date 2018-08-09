@@ -12,7 +12,7 @@ namespace Drone.Commands
 
         public InitialPosition(PointD initialPoint) => Point = initialPoint;
 
-        public InitialPosition(string instruction)
+        public InitialPosition(string instruction) : base(instruction)
         {
             Point = null;
             Match match = Regex.Match(instruction, _regex, RegexOptions.Singleline);

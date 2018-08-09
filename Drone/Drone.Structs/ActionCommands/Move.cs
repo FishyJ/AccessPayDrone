@@ -3,14 +3,14 @@ using System.Text.RegularExpressions;
 
 namespace Drone.Commands
 {
-    public class Move : BaseCommand, ITrigger
+    public class Move : BaseCommand, IActionCommand, ITrigger
     {
-        private static string _regex = @"[mM](\d+\.?\d*),(\d+\.?\d*)";
+        private static string _regex = @"[mM]([-]?\d+\.?\d*),(\d+\.?\d*)";
         public double Time { get; }
         public double Direction { get; }
         private Move() {} // Disable default constructor.
 
-        public Move(string instruction)
+        public Move(string instruction) : base(instruction)
         {
             bool success = false;
             Match match = Regex.Match(instruction, _regex, RegexOptions.Singleline);

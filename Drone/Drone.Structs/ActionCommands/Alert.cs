@@ -4,7 +4,7 @@ using System.Timers;
 
 namespace Drone.Commands
 {
-    public class Alert : BaseCommand, ITrigger
+    public class Alert : BaseCommand, IActionCommand, ITrigger
     {
         private static string _regex = @"[aA](\d+\.?\d*)";
         private System.Timers.Timer _timer;
@@ -22,7 +22,7 @@ namespace Drone.Commands
             //_timer.Start();
         }
 
-        public Alert(string instruction)
+        public Alert(string instruction) : base(instruction)
         {
             Match match = Regex.Match(instruction, _regex, RegexOptions.Singleline);
             if (double.TryParse(match.Groups[1].Value, out double seconds))

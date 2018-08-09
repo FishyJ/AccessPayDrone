@@ -5,18 +5,12 @@ namespace Drone
     public class Location // Make class immutable, represents the stte of a location at a point in time.
     {
         public PointD Point { get; }
-        public BoundaryBreached Breached { get; }
+        public BoundaryBreach Breach { get; }
 
-        public Location(PointD point, BoundaryBreached boundaryBreached)
+        public Location(PointD point, BoundaryBreach boundaryBreach)
         {
             Point = point;
-            Breached = boundaryBreached;
-        }
-
-        public static Location NextLocation(PointD upperBoundary, Location curentLocation, PointD moveBy)
-        {
-            PointD nextPoint = PointD.NextPoint(curentLocation.Point, moveBy);
-            return new Location(nextPoint, PointD.WouldHaveBreachedBoundary(upperBoundary, nextPoint));
+            Breach = boundaryBreach;
         }
 
     }

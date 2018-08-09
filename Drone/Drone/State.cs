@@ -13,6 +13,9 @@ namespace Drone
         private System.Timers.Timer _timer;
         private static State _state;
 
+        public StateEventArgs.StateEventHandler StateChange;
+        public StateEventArgs.StateEventHandler StateError;
+
         public PointD InitialPosition { get; private set; }
         public PointD Boundary { get; private set; }
         public Location CurrentLocation { get; }
@@ -22,17 +25,29 @@ namespace Drone
         private Queue<BaseCommand> _commandQueue;
         private Queue<BaseCommand> _additionalCommands;
 
+        protected virtual void OnStateChange(StateEventArgs e)
+        {
+            StateEventArgs.StateEventHandler handler = StateChange;
+            handler?.Invoke(this, e);
+        }
+        protected virtual void OnStateError(StateEventArgs e)
+        {
+            StateEventArgs.StateEventHandler handler = StateError;
+            handler?.Invoke(this, e);
+        }
+
         public void AddCommand(string instruction) => _commandQueue.Enqueue(Factory.CreateCommand(instruction));
 
         public State()
         {
-            Reset();
+            Restart();
             _commandQueue = new Queue<BaseCommand>();
             _additionalCommands = new Queue<BaseCommand>();
 
 
             _timer = new System.Timers.Timer(0.5 * 1000) {AutoReset = true}; // 0.5 secs.
             _timer.Elapsed += Tick;
+            _timer.Start();
         }
 
         private void Tick(object sender, System.Timers.ElapsedEventArgs e)
@@ -46,44 +61,79 @@ namespace Drone
             else { if (_commandQueue.Any()) { DoCommand(_commandQueue.Dequeue()); } }
         }
 
+        private bool ReadyToRoll() => Started && Boundary != null;
+
         private void DoCommand(BaseCommand command)
         {
-            if (command == null) { throw  new ArgumentNullException("command"); }
-            if (!Started && ((command is Shutdown) || !(command is Start))) { throw new InvalidStateException("Drone not yet started!"); }
-            if (Started && (command is Start)) { throw new InvalidStateException("Drone already started!"); }
+            if (command == null) { throw new ArgumentNullException(nameof(command)); }
 
-            if (command is Restart) { Reset(); }
+            if (!Started && ((command is Shutdown) || !(command is Start)))
+            {
+                OnStateError(new StateEventArgs() {Command = command, Message = "Drone not yet started!"});
+                return;
+            }
 
-            if (Boundary == null && !(command is Boundary)) { throw new InvalidStateException("Boundary has not been set!"); }
+            if (Started && (command is Start))
+            {
+                OnStateError(new StateEventArgs() { Command = command, Message = "Drone already started!" });
+                return;
+            }
 
-            if (command is InitialPosition) { InitialPosition = ((InitialPosition) command).Point; }
-            if (command is ToggleLights) { ToggleLights((ToggleLights)command); }
+            if (command is Restart) { Restart(); }
+
+            if (Boundary == null && !(command is Boundary))
+            {
+                OnStateError(new StateEventArgs() { Command = command, Message = "Boundary has not been set!" });
+                return;
+            }
+
+            if (!ReadyToRoll() && command is IActionCommand)
+            {
+                OnStateError(new StateEventArgs() { Command = command, Message = "Cannot process action commands unless the drone is started and has a boundary." });
+                return;
+            }
+
+            if (command is InitialPosition position) { InitialPosition = position.Point; }
+
+            if (command is ITrigger trigger) { trigger.Trigger(); }
+
+            if (command is ToggleLights lights) { ToggleLights(lights); }
             if (command is FlashLights) { FlashLights(); }
 
-            if (command is Alert) { Alert((Alert)command); }
+            if (command is Alert alert) { Alert(alert); }
+            if (command is Home) { }
         }
 
         private void ToggleLights(ToggleLights toggleLights)
         {
             LightsOn = !LightsOn;
-            throw new NotImplementedException();
+            OnStateChange(new StateEventArgs() {Command = toggleLights});
         }
 
         private void FlashLights()
         {
-            throw new NotImplementedException();
+            OnStateChange(new StateEventArgs() { Command = new FlashLights() });
         }
 
         private void Alert(Alert alert)
         {
             // Sound horn for alert.RemainingSeconds.
+            OnStateChange(new StateEventArgs() { Command = alert });
             throw new NotImplementedException();
         }
 
-        private void Reset()
+        private void Home()
+        {
+            Move move = new Move(PointD.CalculateHypotenuse(CurrentLocation.Point,InitialPosition), PointD.CalculateDegrees(CurrentLocation.Point, InitialPosition));
+            _additionalCommands.Enqueue(move);
+            OnStateChange(new StateEventArgs() { Command = new Home() });
+        }
+
+        private void Restart()
         {
             InitialPosition = new PointD(0, 0); // Default initial position.
             Boundary = null; // Set boundary invalid for command test.
+            OnStateChange(new StateEventArgs() { Command = new Restart() });
         }
 
         private double CleanDirection(double direction)

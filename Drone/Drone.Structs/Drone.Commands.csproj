@@ -43,7 +43,7 @@
     <Compile Include="ActionCommands\Alert.cs" />
     <Compile Include="ActionCommands\AlertEventArgs.cs" />
     <Compile Include="BaseClasses\BaseCommand.cs" />
-    <Compile Include="CommandList.cs" />
+    <Compile Include="IActionCommand.cs" />
     <Compile Include="ManagementCommands\Boundary.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="ActionCommands\FlashLights.cs" />

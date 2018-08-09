@@ -1,6 +1,6 @@
 ﻿namespace Drone.Freedom
 {
-    public class Commands
+    public class Commands : Drone.Rails.Commands
     {
         public Commands()
         {

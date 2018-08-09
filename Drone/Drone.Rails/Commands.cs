@@ -1,57 +1,41 @@
 ﻿using System;
+using Drone.Common;
+using Move = Drone.Commands.Move;
 
 namespace Drone.Rails
 {
     public class Commands
     {
-        public object ParseCommand(string instruction)
+
+
+        public static BoundaryBreach BoundaryWouldBreach(PointD upperBoundary, PointD currentLocation, Common.Move move)
         {
-            throw new NotImplementedException();
+            double deltaX = currentLocation.X + CalculateX(move);
+            double deltaY = currentLocation.Y + CalculateY(move);
+
+            return WouldHaveBreachedBoundary(upperBoundary, new PointD(deltaX, deltaY));
+        }
+        public static BoundaryBreach WouldHaveBreachedBoundary(PointD upperBoundary, PointD point)
+        {
+            if (point.X < 0) return BoundaryBreach.Left;
+            if (point.Y < 0) return BoundaryBreach.Bottom;
+            if (point.X > upperBoundary.X) return BoundaryBreach.Right;
+            if (point.Y > upperBoundary.Y) return BoundaryBreach.Top;
+            return BoundaryBreach.No;
         }
 
-        public object Start()
+        public static Location NextLocation(PointD upperBoundary, Location curentLocation, PointD moveBy)
         {
-            throw new NotImplementedException();
+            PointD nextPoint = PointD.NextPoint(curentLocation.Point, moveBy);
+            return new Location(nextPoint, WouldHaveBreachedBoundary(upperBoundary, nextPoint));
         }
 
-        public object Boundary(double x, double y)
-        {
-            throw new NotImplementedException();
-        }
+        public static double CalculateX(Drone.Common.Move move) => Math.Sin(Degrees2Radians(move.Degrees)) * move.Distance;
+        public static double CalculateY(Drone.Common.Move move) => Math.Cos(Degrees2Radians(move.Degrees)) * move.Distance;
 
-        public object InitialPosition(double x, double y)
-        {
-            throw new NotImplementedException();
-        }
+        public static double Degrees2Radians(double degrees) => Math.PI * degrees / 180.0;
 
-        public object Restart()
-        {
-            throw new NotImplementedException();
-        }
+        public static double Radians2Degrees(double radians) => 180.0 * radians / Math.PI;
 
-        public object Shutdown()
-        {
-            throw new NotImplementedException();
-        }
-
-        public object ToggleLights()
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Alert(double seconds)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Home()
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Move(double seconds, double degrees)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

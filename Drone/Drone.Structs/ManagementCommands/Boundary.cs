@@ -12,7 +12,7 @@ namespace Drone.Commands
 
         public Boundary(PointD upperBoundary) => Point = upperBoundary;
 
-        public Boundary(string instruction)
+        public Boundary(string instruction) : base(instruction)
         {
             Point = null;
             Match match = Regex.Match(instruction, _regex, RegexOptions.Singleline);
